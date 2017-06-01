@@ -8,10 +8,23 @@ import {
 import CameraRollPicker from 'react-native-camera-roll-picker';
 
 export default class juleswardrobe extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      movies: [],
+      num: 0,
+      selected: [],
+    }
+  };
+
+  getSelectedImages() {
+    
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <CameraRollPicker />
+        <CameraRollPicker callback={this.getSelectedImages.bind(this)} />
       </View>
     );
   }
