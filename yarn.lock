@@ -1148,6 +1148,10 @@ cryptiles@2.x.x:
   dependencies:
     boom "2.x.x"
 
+crypto-js@^3.1.9-1:
+  version "3.1.9-1"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.1.9-1.tgz#fda19e761fc077e01ffbfdc6e9fdfc59e8806cd8"
+
 csrf@~3.0.0:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/csrf/-/csrf-3.0.6.tgz#b61120ddceeafc91e76ed5313bb5c0b2667b710a"
@@ -2936,6 +2940,18 @@ react-devtools-core@^2.0.8:
   dependencies:
     shell-quote "^1.6.1"
     ws "^2.0.3"
+
+react-native-camera-roll-picker@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/react-native-camera-roll-picker/-/react-native-camera-roll-picker-1.1.9.tgz#99bad3a9c117ad79e67044c420ce463ee18f29d3"
+
+react-native-config@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.4.2.tgz#42ee30835c6aa293a91f4487c85a3e9f15204f56"
+
+react-native-image-resizer@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-image-resizer/-/react-native-image-resizer-0.1.1.tgz#2abcac85d97e08854b2de716d62953bbae003c77"
 
 react-native@0.44.0:
   version "0.44.0"
