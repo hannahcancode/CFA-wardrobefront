@@ -12,7 +12,8 @@
 		"react-native": "0.44.0",
 		"react-native-camera-roll-picker": "^1.1.9",
 		"react-native-config": "^0.4.2",
-		"react-native-image-resizer": "^0.1.1"
+		"react-native-image-resizer": "^0.1.1",
+		"react-native-snap-carousel": "^2.1.4"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",
