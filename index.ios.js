@@ -15,8 +15,10 @@ import CryptoJS from 'crypto-js';
 import ImageResizer from 'react-native-image-resizer';
 import Config from 'react-native-config';
 import Carousel from 'react-native-snap-carousel';
+import ImageBrowser from './ImageBrowser';
 
 export default class juleswardrobe extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -41,8 +43,7 @@ export default class juleswardrobe extends Component {
     });
   }
 
-  uploadImage(uri) {
-    console.log("hi")
+  uploadImage(uri, type) {
     let timestamp = (Date.now() / 1000 | 0).toString();
     let api_key = Config.CLOUDINARY_KEY
     let api_secret = Config.CLOUDINARY_SECRET
@@ -56,9 +57,9 @@ export default class juleswardrobe extends Component {
     xhr.open('POST', upload_url);
     xhr.onload = () => {
       const response = JSON.parse(xhr._response);
-      this.setState({url: response.secure_url.toString(), upload: false, uploading: false, selected: [] })
+      this.setState({url: response.secure_url.toString(), uploading: false, selected: [] })
       console.log(this.state.url);
-      this.postNewURL(this.state.url);
+      this.postNewURL(this.state.url, this.state.selectedType);
     };
 
     let formdata = new FormData();
@@ -69,16 +70,18 @@ export default class juleswardrobe extends Component {
     xhr.send(formdata);
   }
 
-  imageResize() {
+  imageResize(type) {
+    console.log(type)
     this.setState({
-      uploading: true
+      uploading: true,
+      selectedType: type
     })
     const uri = this.state.selected[0].uri
     console.log("hit imageResize with", uri)
     ImageResizer.createResizedImage(uri, 250, 250, 'JPEG', 80)
       .then((resizeImageUri) => {
         console.log("working...")
-        this.uploadImage(resizeImageUri)
+        this.uploadImage(resizeImageUri, type)
       }).catch((err) => {
         console.error(err)
       });
@@ -88,7 +91,12 @@ export default class juleswardrobe extends Component {
     fetch('https://juleswardrobe.herokuapp.com/api/')
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ clothes: responseJson });
+        this.setState({
+          clothes: responseJson,
+          tops: responseJson.filter(this.isTop),
+          bottoms: responseJson.filter(this.isBottom),
+          shoes: responseJson.filter(this.isShoes)
+        });
         console.log(this.state.clothes)
       })
       .catch((error) => {
@@ -96,9 +104,29 @@ export default class juleswardrobe extends Component {
       });
   }
 
+  isTop(item){
+  if (item.category === 'top') {
+    return true;
+    }
+  }
+
+  isBottom(item){
+  if (item.category === 'bottom') {
+    return true;
+    }
+  }
+
+  isShoes(item){
+  if (item.category === 'shoes') {
+    return true;
+    }
+  }
+
   postNewURL(newURL) {
-    fetch(`https://juleswardrobe.herokuapp.com/api/new?imageUrl=${newURL}`, {
-      method: 'POST' })
+    fetch(`https://juleswardrobe.herokuapp.com/api/new?imageUrl=${newURL}&cat=${this.state.selectedType}`,
+      {
+        method: 'POST'
+      })
       .then(() => this.getItems())
       .catch((error) => {
         console.error(error);
@@ -109,64 +137,62 @@ export default class juleswardrobe extends Component {
     const { height, width } = Dimensions.get('window');
       if (this.state.upload && this.state.uploading) {
         return (
-      <View style={styles.container}>
-        <CameraRollPicker selected={this.state.selected} callback={this.getSelectedImages.bind(this)} />
-        <ActivityIndicator
-          animating={this.state.animating}
-          style={[styles.centering, {height: 80}]}
-          size="large" />
-        <Button title="Cancel" onPress={() => this.setState({upload: false})} />
-        <Button title="Upload selected" onPress={this.imageResize.bind(this)} />
-      </View> ) }
+          <View style={styles.container}>
+            <CameraRollPicker selected={this.state.selected} callback={this.getSelectedImages.bind(this)} />
+            <ActivityIndicator
+              animating={this.state.animating}
+              style={[styles.centering, {height: 80}]}
+              size="large" />
+            <Button title="Cancel" onPress={() => this.setState({upload: false})} />
+          </View> ) }
+
       else if (this.state.upload && !this.state.uploading) {
         return (
-      <View style={styles.container}>
-        <CameraRollPicker selected={this.state.selected} callback={this.getSelectedImages.bind(this)} />
-        <Button title="Cancel" onPress={() => this.setState({upload: false})} />
-        <Button title="Upload selected" onPress={this.imageResize.bind(this)} />
-      </View> ) }
+          <View style={styles.container}>
+            <CameraRollPicker selected={this.state.selected} callback={this.getSelectedImages.bind(this)} />
+            <Button title="Cancel" onPress={() => this.setState({upload: false})} />
+            <Button title="Upload as top" onPress={() => this.imageResize("top")} />
+            <Button title="Upload as bottom" onPress={() => this.imageResize("bottom")} />
+            <Button title="Upload as shoes" onPress={() => this.imageResize("shoes")} />
+          </View> ) }
+
       else if (!this.state.upload && !this.state.categorize) {
-      return (
-      <View style={styles.container}>
-        { this.state.clothes.length > 0 ?
-        <Carousel style={styles.carousel}
-          ref={(carousel) => { this._carousel = carousel; }}
-          sliderWidth={width}
-          itemWidth={180} autoplay={true} firstItem={1}>
-          { this.state.clothes.map((item, key) =>
-            <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
-          )}
-        </Carousel>
-        : <Text>Hi</Text> }
-        { this.state.clothes.length > 0 ?
-        <Carousel style={styles.carousel}
-          ref={(carousel) => { this._carousel = carousel; }}
-          sliderWidth={width}
-          itemWidth={180} autoplay={true} firstItem={1}>
-          { this.state.clothes.map((item, key) =>
-            <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
-          )}
-        </Carousel>
-        : <Text>Hi</Text> }
-        { this.state.clothes.length > 0 ?
-        <Carousel style={styles.carousel}
-          ref={(carousel) => { this._carousel = carousel; }}
-          sliderWidth={width}
-          itemWidth={180} autoplay={true} firstItem={1}>
-          { this.state.clothes.map((item, key) =>
-            <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
-          )}
-        </Carousel>
-        : <Text>Hi</Text> }
-        <Button title="Upload new images" onPress={() => this.setState({upload: true})} />
-        <Button title="Categorize Images" onPress={() => this.setState({categorize: true})} />
-      </View> )} else if (this.state.categorize) {
         return (
-      <View>
-        <Button title="Categorize Images" onPress={() => this.setState({categorize: false})} />
+            this.state.clothes.length > 0 ?
+              <View style={styles.container}>
+              <Carousel style={styles.carousel}
+                ref={(carousel) => { this._carousel = carousel; }}
+                sliderWidth={width}
+                itemWidth={180} autoplay={true} firstItem={1}>
+                { this.state.tops.map((item, key) =>
+                  <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
+                )}
+              </Carousel>
+              <Carousel style={styles.carousel}
+                ref={(carousel) => { this._carousel = carousel; }}
+                sliderWidth={width}
+                itemWidth={180} autoplay={true} firstItem={1}>
+                { this.state.bottoms.map((item, key) =>
+                  <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
+                )}
+              </Carousel>
+              <Carousel style={styles.carousel}
+                ref={(carousel) => { this._carousel = carousel; }}
+                sliderWidth={width}
+                itemWidth={180} autoplay={true} firstItem={1}>
+                { this.state.shoes.map((item, key) =>
+                  <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
+                )}
+              </Carousel>
+              <Button title="Upload new images" onPress={() => this.setState({upload: true})} />
+            </View>
+            :
+            <View style={styles.container}>
 
-      </View> )}
+            <Button title="Upload new images" onPress={() => this.setState({upload: true})} />
+          </View>
 
+          )}
   }
 }
 
