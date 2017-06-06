@@ -15,7 +15,6 @@ import CryptoJS from 'crypto-js';
 import ImageResizer from 'react-native-image-resizer';
 import Config from 'react-native-config';
 import Carousel from 'react-native-snap-carousel';
-import ImageBrowser from './ImageBrowser';
 
 export default class juleswardrobe extends Component {
 
