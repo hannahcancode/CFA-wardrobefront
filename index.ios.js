@@ -171,7 +171,7 @@ export default class juleswardrobe extends Component {
   }
 
   postNewURL(newURL) {
-    fetch(`https://juleswardrobe.herokuapp.com/api/new?imageUrl=${newURL}&cat=${this.state.selectedType}`,
+    fetch(`https://juleswardrobe.herokuapp.com/api/new?imageUADMrl=${newURL}&cat=${this.state.selectedType}`,
       {
         method: 'POST'
       })
@@ -186,82 +186,91 @@ export default class juleswardrobe extends Component {
       if (this.state.upload && this.state.uploading) {
         return (
           <View style={styles.container}>
-            <CameraRollPicker style={styles.cameraRoll} maximum={1} selectedMarker={<Image source={require("./assets/circle-check.png")} style={[styles.marker, {width: 25, height: 25}]}
- />} selected={this.state.selected} callback={this.getSelectedImages.bind(this)} />
-             <ActivityIndicator
+            <CameraRollPicker
+              style={styles.cameraRoll}
+              maximum={1}
+              selectedMarker={
+                <Image source={require("./assets/circle-check.png")}
+                  style={[styles.marker, {width: 25, height: 25}]}
+                 />}
+              selected={this.state.selected}
+              callback={this.getSelectedImages.bind(this)}
+            />
+            <ActivityIndicator
               animating={this.state.animating}
               style={[styles.centering, {height: 80}]}
-              size="large" />
+              size="large"
+            />
             <Button title="Cancel" onPress={() => this.setState({upload: false})} />
-          </View> ) }
+          </View>
+        )}
 
       else if (this.state.upload && !this.state.uploading) {
         return (
           <Container>
-          <Content>
-            <CameraRollPicker style={styles.cameraRoll} maximum={1} selectedMarker={<Image source={require("./assets/circle-check.png")} style={[styles.marker, {width: 25, height: 25}]}
- />} selected={this.state.selected} callback={this.getSelectedImages.bind(this)} />
-          </Content>
-          <Footer>
-            {/* <Button title="Cancel" onPress={() => this.setState({upload: false})} /> */}
-            <FooterBar update={this.updateFalse.bind(this)} upload={true} imageResize={this.imageResize.bind(this)} disabled={this.state.uploadButton} />
-            {/* <Button title="Upload as top" onPress={() => this.imageResize("top")} />
-            <Button title="Upload as bottom" onPress={() => this.imageResize("bottom")} />
-            <Button title="Upload as shoes" onPress={() => this.imageResize("shoes")} /> */}
-          </Footer>
-        </Container>
-      ) }
+            <Content>
+              <CameraRollPicker
+                style={styles.cameraRoll}
+                maximum={1}
+                selectedMarker={
+                  <Image source={require("./assets/circle-check.png")}
+                  style={[styles.marker, {width: 25, height: 25}]}
+                />}
+                selected={this.state.selected}
+                callback={this.getSelectedImages.bind(this)}
+              />
+            </Content>
+            <Footer>
+              <FooterBar
+                update={this.updateFalse.bind(this)}
+                upload={true}
+                imageResize={this.imageResize.bind(this)}
+                disabled={this.state.uploadButton} />
+            </Footer>
+          </Container>
+        )}
 
       else if (!this.state.upload && !this.state.categorize) {
         return (
             this.state.clothes.length > 0 ?
-              <Container>
-                <Content>
-                  <View style={styles.container}>
-              <Carousel style={styles.carousel}
-                ref={(carousel) => { this._carousel1 = carousel; }}
-                sliderWidth={width}
-                itemWidth={180}
-                firstItem={1}
-                autoplayInterval={400}
-                autoplayDelay={0}>
-                { this.state.tops.map((item, key) =>
-                  <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
-                )}
-              </Carousel>
-              <Carousel style={styles.carousel}
-                ref={(carousel) => { this._carousel2 = carousel; }}
-                sliderWidth={width}
-                itemWidth={180}
-                firstItem={1}
-                autoplayInterval={400}
-                autoplayDelay={0}>
-                { this.state.bottoms.map((item, key) =>
-                  <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
-                )}
-              </Carousel>
-              <Carousel style={styles.carousel}
-                ref={(carousel) => { this._carousel3 = carousel; }}
-                sliderWidth={width}
-                itemWidth={180}
-                autoplayInterval={400}
-                firstItem={1}
-                autoplayDelay={0}>
-                { this.state.shoes.map((item, key) =>
-                  <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
-                )}
-              </Carousel>
-            </View>
-            </Content>
-              {/* <Button title="Upload new images" onPress={() => this.setState({upload: true})} /> */}
-            <Footer>
-              <FooterBar style={styles.footer} update={this.updateTrue.bind(this)} upload={false} shuffle={this.shuffle.bind(this)} stopShuffle={this.stop.bind(this)} shuffling={this.state.shuffle}/>
-            </Footer>
-            </Container>
+              <View style={styles.container}>
+                <Carousel style={styles.carousel}
+                  ref={(carousel) => { this._carousel1 = carousel; }}
+                  sliderWidth={width}
+                  itemWidth={180}
+                  firstItem={1}
+                  autoplayInterval={400}
+                  autoplayDelay={0} >
+                  { this.state.tops.map((item, key) =>
+                    <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
+                  )}
+                </Carousel>
+                <Carousel style={styles.carousel}
+                  ref={(carousel) => { this._carousel2 = carousel; }}
+                  sliderWidth={width}
+                  itemWidth={180}
+                  firstItem={1}
+                  autoplayInterval={400}
+                  autoplayDelay={0}>
+                  { this.state.bottoms.map((item, key) =>
+                    <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
+                  )}
+                </Carousel>
+                <Carousel style={styles.carousel}
+                  ref={(carousel) => { this._carousel3 = carousel; }}
+                  sliderWidth={width}
+                  itemWidth={180}
+                  autoplayInterval={400}
+                  firstItem={1}
+                  autoplayDelay={0}>
+                  { this.state.shoes.map((item, key) =>
+                    <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
+                  )}
+                </Carousel>
+                {/* <FooterBar style={styles.footer} update={this.updateTrue.bind(this)} upload={false} shuffle={this.shuffle.bind(this)} stopShuffle={this.stop.bind(this)} shuffling={this.state.shuffle}/> */}
+              </View>
             :
             <View style={styles.container}>
-
-            {/* <Button title="Upload new images" onPress={() => this.setState({upload: true})} /> */}
             <FooterBar style={styles.footer} update={this.updateTrue.bind(this)} />
           </View>
 
