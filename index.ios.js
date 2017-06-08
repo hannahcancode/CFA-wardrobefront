@@ -155,9 +155,6 @@ export default class juleswardrobe extends Component {
     this._carousel1.stopAutoplay()
     this._carousel2.stopAutoplay()
     this._carousel3.stopAutoplay()
-    this._carousel1.snapToNext()
-    this._carousel2.snapToNext()
-    this._carousel3.snapToNext()
   }
 
   updateTrue(){
@@ -251,7 +248,7 @@ export default class juleswardrobe extends Component {
                   itemWidth={180}
                   firstItem={1}
                   autoplayInterval={400}
-                  autoplayDelay={0}>
+                  autoplayDelay={0} >
                   { this.state.bottoms.map((item, key) =>
                     <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
                   )}
@@ -262,18 +259,19 @@ export default class juleswardrobe extends Component {
                   itemWidth={180}
                   autoplayInterval={400}
                   firstItem={1}
-                  autoplayDelay={0}>
+                  autoplayDelay={0} >
                   { this.state.shoes.map((item, key) =>
                     <Image key={key} source={{uri: item.imageUrl}} style={styles.clothing} />
                   )}
                 </Carousel>
-                {/* <FooterBar style={styles.footer} update={this.updateTrue.bind(this)} upload={false} shuffle={this.shuffle.bind(this)} stopShuffle={this.stop.bind(this)} shuffling={this.state.shuffle}/> */}
+                <Footer>
+                  <FooterBar style={styles.footer} update={this.updateTrue.bind(this)} upload={false} shuffle={this.shuffle.bind(this)} stopShuffle={this.stop.bind(this)} shuffling={this.state.shuffle}/>
+                </Footer>
               </View>
             :
-            <View style={styles.container}>
-            <FooterBar style={styles.footer} update={this.updateTrue.bind(this)} />
-          </View>
-
+              <View style={styles.container}>
+                <FooterBar style={styles.footer} update={this.updateTrue.bind(this)} />
+              </View>
           )}
   }
 }
@@ -281,16 +279,12 @@ export default class juleswardrobe extends Component {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
-    paddingBottom: 10,
-    flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  carousel: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'stretch',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  carousel: {
     height: null,
     width: null,
   },
@@ -311,7 +305,7 @@ const styles = StyleSheet.create({
   top: 5,
   right: 5,
   backgroundColor: 'transparent',
-},
+  },
 });
 
 AppRegistry.registerComponent('juleswardrobe', () => juleswardrobe);
