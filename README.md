@@ -20,15 +20,19 @@ Jules' wardrobe provides a visual representation of potential outfits. It allows
 
 ## Example
 
-![Example app screenshot](http://res.cloudinary.com/doe2gejvd/image/upload/s--0FGz38Ym--/c_scale,w_441/v1497253693/Screen_Shot_2017-06-12_at_5.47.07_pm_yn9vio.png)
+![Example app screenshot](https://res.cloudinary.com/doe2gejvd/image/upload/s--0FGz38Ym--/c_scale,w_441/v1497253693/Screen_Shot_2017-06-12_at_5.47.07_pm_yn9vio.png)
 
 ## Installation
 
 As this is a native app that needs to run on an iOS device (or simulator), the installation is a little more involved.
 
-### iPhone Simulator
+### Initial setup
 
-- In order to run React Native applications on the iPhone simulator, you must first have Xcode installed (visit the [The Apple website](https://developer.apple.com/xcode/) for installation instructions)
+- Create a [Cloudinary](https://www.cloudinary.com/) account to store images
+
+- This app requires a RESTful API backend. Please see the [repository](https://github.com/hannahcancode/wardrobe) for the Jules' Wardrobe node backend for further information.
+
+- Create a .env file in the root folder and add your CLOUDINARY_KEY, CLOUDINARY_SECRET and WARDROBE_API as environmental variables.
 
 - Install node and watchman:
 
@@ -43,7 +47,11 @@ As this is a native app that needs to run on an iOS device (or simulator), the i
   $ npm install -g react-native-cli
   ```
 
-- In terminal, navigate to the root folder and run:
+  ### iPhone Simulator
+
+  - In order to run React Native applications on the iPhone simulator, you must first have Xcode installed (visit the [The Apple website](https://developer.apple.com/xcode/) for installation instructions)
+
+- Once cloned, in terminal, navigate to the root folder and run:
 
   ```
   $ yarn install
