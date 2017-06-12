@@ -101,7 +101,7 @@ export default class juleswardrobe extends Component {
     }
 
   getItems() {
-    fetch('https://juleswardrobe.herokuapp.com/api/')
+    fetch(Config.WARDROBE_API)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -168,7 +168,7 @@ export default class juleswardrobe extends Component {
   }
 
   postNewURL(newURL) {
-    fetch(`https://juleswardrobe.herokuapp.com/api/new?imageUrl=${newURL}&cat=${this.state.selectedType}`,
+    fetch(`${Config.WARDROBE_API}new?imageUrl=${newURL}&cat=${this.state.selectedType}`,
       {
         method: 'POST'
       })
