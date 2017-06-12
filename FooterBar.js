@@ -17,11 +17,11 @@ import {StyleSheet} from 'react-native'
                       <Icon name="ios-arrow-back" />
                       <Text>Back</Text>
                   </Button>
-                  <Button onPress={() => this.props.imageResize("tops")} vertical disabled={this.props.disabled}>
+                  <Button onPress={() => this.props.imageResize("top")} vertical disabled={this.props.disabled}>
                       <Icon name="ios-cloud-upload-outline" />
                       <Text>Tops</Text>
                   </Button>
-                  <Button onPress={() => this.props.imageResize("bottoms")} vertical disabled={this.props.disabled}>
+                  <Button onPress={() => this.props.imageResize("bottom")} vertical disabled={this.props.disabled}>
                       <Icon name="ios-cloud-upload-outline" />
                       <Text>Bottoms</Text>
                   </Button>

@@ -111,7 +111,7 @@ export default class juleswardrobe extends Component {
           shoes: responseJson.filter(this.isShoes),
           shuffle: false,
         });
-        console.log(this.state.clothes)
+        console.log(this.state.tops)
       })
       .catch((error) => {
         console.error(error);
@@ -168,7 +168,7 @@ export default class juleswardrobe extends Component {
   }
 
   postNewURL(newURL) {
-    fetch(`https://juleswardrobe.herokuapp.com/api/new?imageUADMrl=${newURL}&cat=${this.state.selectedType}`,
+    fetch(`https://juleswardrobe.herokuapp.com/api/new?imageUrl=${newURL}&cat=${this.state.selectedType}`,
       {
         method: 'POST'
       })
