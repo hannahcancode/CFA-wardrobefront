@@ -2,14 +2,26 @@
 
 ## Table of Contents
 
-1. [About](#About)
-  1. [Problem Statement](#problemstatement)
-  2. [Solution](#solution)
+1. [About](#about)
+    1. [Problem Statement](#problemstatement)
+    2. [Solution](#solution)
 2. [Example](#example)
 3. [Installation](#installation)
-  1. [Setup](#setup)
-  2. [Running on Simulator](#simulator)
-  3. [Running on iPhone](#iphone)
+    1. [Setup](#setup)
+    2. [Running on Simulator](#simulator)
+    3. [Running on iPhone](#iphone)
+4. [Project Charter](#charter)
+    1. [Scope](#scope)
+    2. [Requirements](#mvp)
+    3. [Potential Features](#potential-features)
+    4. [Deliverables](#deliverables)
+    5. [Benefits](#benefits)
+5. [Design](#design)
+    1. [Wireframes](#wireframes)
+    2. [User Journey](#userjourney)
+    3. [ERD](#erd)
+    4. [User Stories and Pricing](#trello)
+5. [Project Management](#management)
 
 
 ## About <a name="about">
@@ -82,3 +94,89 @@ As this is a native app that needs to run on an iOS device (or simulator), the i
 - Open the iOS Xcode file and add your developer account
 - Connect your phone to your computer with USB
 - Select your phone in Xcode and press play to compile the app and play on your phone.
+
+## Project Charter <a name="charter">
+
+### Scope <a name="scope">
+
+To recreate the "Clueless app", as used by Cher in the movie Clueless. The app allows users to flick through photos of their own clothing items in order to visualise outfits without trying them on.
+
+### Requirements (MVP) <a name="mvp">
+- A user can add photos of their clothing to the app so they can see their own outfits
+- A user can assign categories to their clothing (tops, bottoms, shoes) so the app can display them in the correct place
+- A user can spin through the different categories so they can find the correct combination of clothes
+- A user can save outfits so they can access them again at a later date
+- A user can use the app on their phone so they can access their camera and/or camera roll
+
+### Potential Features <a name="potential-features">
+
+- A user can log in so they can see only their clothes and other people can't see their clothes
+- A user can link the clothes they buy online to the app and import photos of recent purchase so they can keep their wardrobe updated
+- A user can have their photos resized so their data is wasted uploading unnecessarily large photos.
+- A user can request AI assistance to rate the style of their outfit
+- A user can share their outfits with friends
+
+### Deliverables <a name="deliverables">
+
+- An iPhone app that meets the above 'Minimal app' requirements
+- Documentation on the installation and use of the app
+
+### Benefits <a name="benefits">
+
+#### To Client
+
+- A cool app she's always wanted
+- A solution to the problem statement (outlined above)
+
+#### To Developer
+
+- Learning React Native
+- Creating a front-end focussed application
+
+## Design <a name="design">
+
+### Initial mockup <a name="mockup">
+
+![Inital mockup](https://res.cloudinary.com/doe2gejvd/image/upload/s--wENi3EPU--/v1497501751/IMG_9003_pgy2vo.jpg)
+
+### Wireframes <a name="wireframes">
+
+![Wireframes](https://res.cloudinary.com/doe2gejvd/image/upload/s--xnE5uMf9--/a_90/v1497501748/IMG_9001_aqz8fj.jpg)
+
+### User Journey <a name="userjourney">
+![User journey](https://res.cloudinary.com/doe2gejvd/image/upload/s--8QCZxX62--/a_90/v1497501751/IMG_9002_zu8ppf.jpg)
+
+### ERD <a name="erd">
+
+```js
+const itemSchema = new Schema({
+  name: {
+    type: String,
+    trim: true,
+  },
+  category: {
+    type: String,
+    trim: true,
+  },
+  description: {
+    type: String,
+    trim: true,
+  },
+  imageUrl: {
+    type: String,
+    trim: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+```
+
+### User Stories and Pricing <a name="trello">
+
+Trello was used for project management. The screenshots below show the tracking of user stories (MVP and additional features), deliverables, client interactions, requirements and pricing.
+
+![Trello Screenshot](https://res.cloudinary.com/doe2gejvd/image/upload/s--2dG3FbJ---/v1497501178/Screen_Shot_2017-06-12_at_4.58.57_pm_lamspj.png)
+![Trello Screenshot](https://res.cloudinary.com/doe2gejvd/image/upload/s--hyXw5pIS--/v1497501183/Screen_Shot_2017-06-12_at_5.03.21_pm_tgjq58.png)
